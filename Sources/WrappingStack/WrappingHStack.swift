@@ -8,22 +8,32 @@
 import Foundation
 import SwiftUI
 
+/// Horizontal Layout which wraps items onto a new line, wrapping style is determined by arrangement
 public struct WrappingHStack: Layout {
     let itemSpacing: CGFloat
     let rowSpacing: CGFloat
+    let arrangement: Arrangement
+    let containerFactory = ContainerFactory()
 
-    public init(itemSpacing: CGFloat = 0 , rowSpacing: CGFloat = 0) {
+    /// - itemSpacing: The distance between adjacent subviews, defaults to 0
+    /// - rowSpacing: The distance between each row
+    /// - arrangement: Determines the order in which items are added
+    public init(itemSpacing: CGFloat = 0, rowSpacing: CGFloat = 0, arrangement: Arrangement = .ordered) {
         self.itemSpacing = itemSpacing
         self.rowSpacing = rowSpacing
+        self.arrangement = arrangement
     }
 
     public func makeCache(subviews: Subviews) -> CachedContainer {
-        CachedContainer(container: Container(width: 0))
+        CachedContainer()
     }
 
     public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CachedContainer) -> CGSize {
+
+        guard let width = proposal.width else { return CGSize() }
+
         // Use container to find out sizes
-        cache.container = Container(width: proposal.width ?? 0)
+        cache.container = containerFactory.container(for: arrangement, with: width)
 
         cache.container.fillContainer(subviews: subviews, spacing: itemSpacing)
 
@@ -79,4 +89,24 @@ public struct WrappingHStack: Layout {
 
 public struct CachedContainer {
     var container: Container
+
+    init(container: Container = EmptyContainer()) {
+        self.container = container
+    }
+}
+
+public enum Arrangement {
+    case ordered
+    case bestFit
+}
+
+public struct ContainerFactory {
+    func container(for arrangement: Arrangement, with width: CGFloat) -> Container {
+        switch arrangement {
+        case .ordered:
+            return OrderedContainer(width: width)
+        case .bestFit:
+            return BestFitContainer(width: width)
+        }
+    }
 }

@@ -23,30 +23,30 @@ struct WrappingStackExample: View {
             Spacer()
             
             WrappingHStack(itemSpacing: itemSpacing, rowSpacing: rowSpacing) {
-                ForEach(indices, id: \.self) { _ in
-                    ExampleColorView(color: generateColor())
+                ForEach(indices, id: \.self) { index in
+                    ExampleColorView(item: items[index%items.count])
                 }
             }
             .padding(2)
             .border(.foreground)
-            .background(.black)
+            .background(.gray)
 
             Spacer()
 
             VStack {
-                Slider(value: $itemSpacing, in: 0...15, step: 1)
+                Slider(value: $itemSpacing, in: 0...20, step: 1)
                 Text("Item spacing: \(Int(itemSpacing))")
             }
             .padding(.vertical, 15)
 
             VStack {
-                Slider(value: $rowSpacing, in: 0...15, step: 1)
+                Slider(value: $rowSpacing, in: 0...20, step: 1)
                 Text("Row spacing: \(Int(rowSpacing))")
             }
             .padding(.vertical, 15)
 
             VStack {
-                Slider(value: $viewCount, in: 0...24, step: 1)
+                Slider(value: $viewCount, in: 0...30, step: 1)
                 Text("View count: \(Int(viewCount))")
             }
             .padding(.vertical, 15)
@@ -61,4 +61,3 @@ struct WrappingStackExample_Previews: PreviewProvider {
         WrappingStackExample()
     }
 }
-
