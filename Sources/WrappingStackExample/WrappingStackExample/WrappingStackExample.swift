@@ -14,7 +14,9 @@ struct WrappingStackExample: View {
 
     @State var rowSpacing: CGFloat = 5
 
-    @State var itemSpacing: CGFloat = 2
+    @State var itemSpacing: CGFloat = 1
+
+    let timer = Timer.publish(every: 0.026, on: .main, in: .common).autoconnect()
 
     var body: some View {
         let indices = Array<Int>(repeating: 0, count: Int(viewCount)).indices
@@ -29,7 +31,9 @@ struct WrappingStackExample: View {
             }
             .padding(2)
             .border(.foreground)
-            .background(.gray)
+            .background(.gray.opacity(0.5))
+            .transition(.opacity)
+            .animation(.default, value: viewCount)
 
             Spacer()
 
@@ -52,6 +56,9 @@ struct WrappingStackExample: View {
             .padding(.vertical, 15)
         }
         .padding()
+        .onReceive(timer) { input in
+            itemSpacing += 0.1
+        }
     }
 
 }
