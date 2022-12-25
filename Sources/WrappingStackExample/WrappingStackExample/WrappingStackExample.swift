@@ -10,11 +10,15 @@ import WrappingStack
 
 struct WrappingStackExample: View {
 
-    @State var viewCount: Double = 9
+    @State var viewCount: Double = 3
 
-    @State var rowSpacing: CGFloat = 5
+    @State var rowSpacing: CGFloat = 6
 
-    @State var itemSpacing: CGFloat = 2
+    @State var itemSpacing: CGFloat = 12
+
+    var arrangement: Arrangement = .bestFit
+
+    let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
 
     var body: some View {
         let indices = Array<Int>(repeating: 0, count: Int(viewCount)).indices
@@ -22,14 +26,18 @@ struct WrappingStackExample: View {
         VStack {
             Spacer()
             
-            WrappingHStack(itemSpacing: itemSpacing, rowSpacing: rowSpacing) {
+            WrappingHStack(itemSpacing: itemSpacing,
+                           rowSpacing: rowSpacing,
+                           arrangement: arrangement) {
                 ForEach(indices, id: \.self) { index in
                     ExampleColorView(item: items[index%items.count])
                 }
             }
             .padding(2)
             .border(.foreground)
-            .background(.gray)
+            .background(.gray.opacity(0.5))
+            .transition(.opacity)
+            .animation(.default, value: viewCount)
 
             Spacer()
 
@@ -52,6 +60,9 @@ struct WrappingStackExample: View {
             .padding(.vertical, 15)
         }
         .padding()
+        .onReceive(timer) { input in
+             viewCount += 1
+        }
     }
 
 }

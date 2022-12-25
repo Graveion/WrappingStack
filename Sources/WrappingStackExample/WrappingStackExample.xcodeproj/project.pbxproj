@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C32641D3295B04F500B20570 /* PerformanceTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32641D2295B04F500B20570 /* PerformanceTestView.swift */; };
 		C39030A4294CE0BC00BBDB31 /* WrappingStackExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030A3294CE0BC00BBDB31 /* WrappingStackExampleApp.swift */; };
 		C39030A6294CE0BC00BBDB31 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030A5294CE0BC00BBDB31 /* ContentView.swift */; };
 		C39030A8294CE0BD00BBDB31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C39030A7294CE0BD00BBDB31 /* Assets.xcassets */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C32641D2295B04F500B20570 /* PerformanceTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTestView.swift; sourceTree = "<group>"; };
 		C39030A0294CE0BC00BBDB31 /* WrappingStackExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrappingStackExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39030A3294CE0BC00BBDB31 /* WrappingStackExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingStackExampleApp.swift; sourceTree = "<group>"; };
 		C39030A5294CE0BC00BBDB31 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				C39030A9294CE0BD00BBDB31 /* Preview Content */,
 				C39030D1294CE22B00BBDB31 /* WrappingStackExample.swift */,
 				C39030D3294CE76D00BBDB31 /* ExampleColorView.swift */,
+				C32641D2295B04F500B20570 /* PerformanceTestView.swift */,
 			);
 			path = WrappingStackExample;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				C39030A4294CE0BC00BBDB31 /* WrappingStackExampleApp.swift in Sources */,
 				C39030D2294CE22B00BBDB31 /* WrappingStackExample.swift in Sources */,
 				C39030D4294CE76D00BBDB31 /* ExampleColorView.swift in Sources */,
+				C32641D3295B04F500B20570 /* PerformanceTestView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -448,6 +452,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -477,6 +482,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
