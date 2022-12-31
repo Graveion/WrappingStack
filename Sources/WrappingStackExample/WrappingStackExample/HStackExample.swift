@@ -1,22 +1,19 @@
 //
-//  WrappingStackExample.swift
+//  HStackExample.swift
 //  WrappingStackExample
 //
-//  Created by Tim Green on 16/12/2022.
+//  Created by Tim Green on 31/12/2022.
 //
 
 import SwiftUI
-import WrappingStack
 
-struct WrappingStackExample: View {
+struct HStackExample: View {
 
     @State var viewCount: Double = 3
 
     @State var rowSpacing: CGFloat = 6
 
     @State var itemSpacing: CGFloat = 12
-
-    var arrangement: Arrangement = .bestFit
 
 //    let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
 
@@ -25,10 +22,9 @@ struct WrappingStackExample: View {
 
         VStack {
             Spacer()
-            
-            WrappingHStack(itemSpacing: itemSpacing,
-                           rowSpacing: rowSpacing,
-                           arrangement: arrangement) {
+
+
+            HStack() {
                 ForEach(indices, id: \.self) { index in
                     ExampleColorView(item: items[index%items.count])
                 }
@@ -67,7 +63,7 @@ struct WrappingStackExample: View {
 
 }
 
-struct WrappingStackExample_Previews: PreviewProvider {
+struct HStackExample_Previews: PreviewProvider {
     static var previews: some View {
         WrappingStackExample()
     }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C32641D3295B04F500B20570 /* PerformanceTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32641D2295B04F500B20570 /* PerformanceTestView.swift */; };
+		C32641D52960A4F400B20570 /* HStackExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32641D42960A4F400B20570 /* HStackExample.swift */; };
 		C39030A4294CE0BC00BBDB31 /* WrappingStackExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030A3294CE0BC00BBDB31 /* WrappingStackExampleApp.swift */; };
 		C39030A6294CE0BC00BBDB31 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030A5294CE0BC00BBDB31 /* ContentView.swift */; };
 		C39030A8294CE0BD00BBDB31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C39030A7294CE0BD00BBDB31 /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		C32641D2295B04F500B20570 /* PerformanceTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTestView.swift; sourceTree = "<group>"; };
+		C32641D42960A4F400B20570 /* HStackExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackExample.swift; sourceTree = "<group>"; };
 		C39030A0294CE0BC00BBDB31 /* WrappingStackExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrappingStackExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39030A3294CE0BC00BBDB31 /* WrappingStackExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingStackExampleApp.swift; sourceTree = "<group>"; };
 		C39030A5294CE0BC00BBDB31 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				C39030D1294CE22B00BBDB31 /* WrappingStackExample.swift */,
 				C39030D3294CE76D00BBDB31 /* ExampleColorView.swift */,
 				C32641D2295B04F500B20570 /* PerformanceTestView.swift */,
+				C32641D42960A4F400B20570 /* HStackExample.swift */,
 			);
 			path = WrappingStackExample;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C32641D52960A4F400B20570 /* HStackExample.swift in Sources */,
 				C39030A6294CE0BC00BBDB31 /* ContentView.swift in Sources */,
 				C39030A4294CE0BC00BBDB31 /* WrappingStackExampleApp.swift in Sources */,
 				C39030D2294CE22B00BBDB31 /* WrappingStackExample.swift in Sources */,

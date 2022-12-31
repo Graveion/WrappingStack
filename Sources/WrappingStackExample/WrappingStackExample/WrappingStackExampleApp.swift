@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-@main
-struct WrappingStackExampleApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
-}
-
 //@main
-//struct PerformanceTestApp {
-//    static func main() {
-//        _TestApp().runBenchmarks([Benchmark()])
+//struct WrappingStackExampleApp: App {
+//    var body: some Scene {
+//        WindowGroup {
+//            ContentView()
+//        }
 //    }
 //}
+
+@main
+struct PerformanceTestApp {
+    static func main() {
+        _TestApp().runBenchmarks([Benchmark()])
+    }
+}
 
 
 struct Benchmark: _Benchmark {
@@ -33,10 +33,10 @@ struct Benchmark: _Benchmark {
             },
             host.measureAction {
                 PerformanceTest2().runTest(host: host, options: [:])
+            },
+            host.measureAction {
+                HStackTest().runTest(host: host, options: [:])
             }
-//            host.measureAction {
-//                PerformanceTest3().runTest(host: host, options: [:])
-//            },
         ]
     }
 }
@@ -46,7 +46,7 @@ struct PerformanceTest: _PerformanceTest {
     var name = "Basic Performance Test"
 
     func runTest(host: SwiftUI._BenchmarkHost, options: [Swift.AnyHashable : Any]) {
-        let test = _makeUIHostingController(AnyView(PerformanceTestView(viewCount: 1000))) as! UIHostingController<AnyView>
+        let test = _makeUIHostingController(AnyView(PerformanceTestView(viewCount: 4000))) as! UIHostingController<AnyView>
         test.setUpTest()
         test.render()
         test.tearDownTest()
@@ -57,8 +57,20 @@ struct PerformanceTest2: _PerformanceTest {
     var name = "Basic Performance Test"
 
     func runTest(host: SwiftUI._BenchmarkHost, options: [Swift.AnyHashable : Any]) {
-        let test = _makeUIHostingController(AnyView(PerformanceTestView(viewCount: 1000,
+        let test = _makeUIHostingController(AnyView(PerformanceTestView(viewCount: 4000,
                                                                         arrangement: .bestFit)
+        )) as! UIHostingController<AnyView>
+        test.setUpTest()
+        test.render()
+        test.tearDownTest()
+    }
+}
+
+struct HStackTest: _PerformanceTest {
+    var name = "H Stack Test"
+
+    func runTest(host: SwiftUI._BenchmarkHost, options: [Swift.AnyHashable : Any]) {
+        let test = _makeUIHostingController(AnyView(HStackExample(viewCount: 4000)
         )) as! UIHostingController<AnyView>
         test.setUpTest()
         test.render()

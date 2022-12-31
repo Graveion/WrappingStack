@@ -58,7 +58,7 @@ internal class BestFitContainer: Container {
     }
 }
 
-internal class NextFit: Container {
+internal class NextFitContainer: Container {
     internal var width: CGFloat
     internal var lines: [Line] = []
 
@@ -80,7 +80,6 @@ internal class NextFit: Container {
         lines.append(currentLine)
 
         for (idx, subview) in subviews.enumerated() {
-            let size = subview.sizeThatFits(.unspecified)
 
             // If its not the last subview then apply a spacing
             let spacerWidth = (idx == subviews.count - 1)
@@ -128,15 +127,13 @@ internal class FirstFitContainer: Container {
             : size.width + spacing
 
             // Loop through the rows and find the first fit for the subview
-//            while foundRow == nil {
-                for line in lines {
-                    // If the subview fits in the row append
-                    if line.canFit(spacerWidth) {
-                        foundLine = line
-                        break
-                    }
+            for line in lines {
+                // If the subview fits in the row append
+                if line.canFit(spacerWidth) {
+                    foundLine = line
+                    break
                 }
-            //}
+            }
 
             if let foundLine = foundLine {
                 foundLine.addSubview(spacerWidth, subview)
@@ -150,10 +147,6 @@ internal class FirstFitContainer: Container {
     }
 }
 
-
-
-
-
 internal protocol Container {
     var width: CGFloat { get }
     var height: CGFloat { get }
@@ -161,7 +154,7 @@ internal protocol Container {
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat)
 }
 
-struct EmptyContainer: Container {
+internal struct EmptyContainer: Container {
     var width: CGFloat = 0.0
     var height: CGFloat = 0.0
     var lines: [Line] = []

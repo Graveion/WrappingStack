@@ -105,7 +105,7 @@ public struct ContainerFactory {
     func container(for arrangement: Arrangement, with width: CGFloat) -> Container {
         switch arrangement {
         case .nextFit:
-            return NextFit(width: width)
+            return NextFitContainer(width: width)
         case .bestFit:
             return BestFitContainer(width: width)
         case .firstFit:
