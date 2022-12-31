@@ -57,7 +57,7 @@ func generateItems(count: Int) -> [ExampleItem] {
     }
 }
 
-let items = generateItems(count: 40)
+let items = generateItems(count: 80)
 
 let randomWords = ["boar",
                    "whiplash",
@@ -92,8 +92,21 @@ let randomWords = ["boar",
                    "loot",
                    "much",
                    "to",
+                   "the",
+                   "boo",
+                   "on",
                    "and",
-                   "homeland"]
+                   "homeland",
+                   "panic",
+                   "sentiment",
+                   "park",
+                   "use",
+                   "denial",
+                   "original",
+                   "carriage",
+                   "witness",
+                   "dealer",
+                   "update"]
 
 
 

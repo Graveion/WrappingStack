@@ -15,7 +15,6 @@ Requirements iOS 16+
 Arrangement:
 * `.ordered`: Items will be added to the stack in the order they are provided, even if there is space on a row for a newly added item.
 
-
 * `.bestFit`: Items will be added to the row which has the most space remaining, assuming it will fit 
 
 

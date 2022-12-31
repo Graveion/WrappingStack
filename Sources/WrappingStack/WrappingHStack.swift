@@ -18,7 +18,7 @@ public struct WrappingHStack: Layout {
     /// - itemSpacing: The distance between adjacent subviews, defaults to 0
     /// - rowSpacing: The distance between each row
     /// - arrangement: Determines the order in which items are added
-    public init(itemSpacing: CGFloat = 0, rowSpacing: CGFloat = 0, arrangement: Arrangement = .ordered) {
+    public init(itemSpacing: CGFloat = 0, rowSpacing: CGFloat = 0, arrangement: Arrangement = .firstFit) {
         self.itemSpacing = itemSpacing
         self.rowSpacing = rowSpacing
         self.arrangement = arrangement
@@ -37,7 +37,7 @@ public struct WrappingHStack: Layout {
 
         cache.container.fillContainer(subviews: subviews, spacing: itemSpacing)
 
-        let calculatedHeight = cache.container.height + (CGFloat(cache.container.rows.count - 1) * rowSpacing)
+        let calculatedHeight = cache.container.height + (CGFloat(cache.container.lines.count - 1) * rowSpacing)
 
         return CGSize(width: cache.container.width,
                       height: calculatedHeight)
@@ -48,7 +48,7 @@ public struct WrappingHStack: Layout {
         var local = bounds
 
         // Use container to place views
-        for (index, row) in cache.container.rows.enumerated() {
+        for (index, row) in cache.container.lines.enumerated() {
 
             var maxHeight: CGFloat = 0
 
@@ -80,7 +80,7 @@ public struct WrappingHStack: Layout {
             // Find a better way to
             // only apply spacing in between rows
             // not on the last
-            if (index != cache.container.rows.count - 1) {
+            if (index != cache.container.lines.count - 1) {
                 local.origin.y += rowSpacing
             }
         }
@@ -96,17 +96,20 @@ public struct CachedContainer {
 }
 
 public enum Arrangement {
-    case ordered
+    case nextFit
     case bestFit
+    case firstFit
 }
 
 public struct ContainerFactory {
     func container(for arrangement: Arrangement, with width: CGFloat) -> Container {
         switch arrangement {
-        case .ordered:
-            return OrderedContainer(width: width)
+        case .nextFit:
+            return NextFit(width: width)
         case .bestFit:
             return BestFitContainer(width: width)
+        case .firstFit:
+            return FirstFitContainer(width: width)
         }
     }
 }

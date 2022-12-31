@@ -6,10 +6,20 @@
 //
 
 import SwiftUI
+import WrappingStack
 
 struct PerformanceTestView: View {
+
+    var viewCount: Double = 1
+    var itemSpacing: CGFloat = 5
+    var rowSpacing: CGFloat = 5
+    var arrangement: Arrangement = .firstFit
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        WrappingStackExample(viewCount: viewCount,
+                             rowSpacing: rowSpacing,
+                             itemSpacing: itemSpacing,
+                             arrangement: arrangement)
     }
 }
 
