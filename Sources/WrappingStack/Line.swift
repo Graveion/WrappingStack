@@ -7,7 +7,7 @@
 import SwiftUI
 import Foundation
 
-internal class Row {
+internal class Line {
     var width: CGFloat
     let height: CGFloat
 
