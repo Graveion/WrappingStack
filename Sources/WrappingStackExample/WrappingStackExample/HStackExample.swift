@@ -26,7 +26,7 @@ struct HStackExample: View {
 
             HStack() {
                 ForEach(indices, id: \.self) { index in
-                    ExampleColorView(item: items[index%items.count])
+                    ExampleTextColorView(item: items[index%items.count])
                 }
             }
             .padding(2)

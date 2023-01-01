@@ -30,14 +30,15 @@ struct WrappingStackExample: View {
                            rowSpacing: rowSpacing,
                            arrangement: arrangement) {
                 ForEach(indices, id: \.self) { index in
-                    ExampleColorView(item: items[index%items.count])
+                    ExampleTextColorView(item: items[index%items.count])
                 }
             }
             .padding(2)
             .border(.foreground)
             .background(.gray.opacity(0.5))
-            .transition(.opacity)
+            .transition(.opacity.combined(with: .slide))
             .animation(.default, value: viewCount)
+            .animation(.default, value: itemSpacing)
 
             Spacer()
 

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-/// Horizontal Layout which wraps items onto a new line, wrapping style is determined by arrangement
+/// Horizontal Layout which wraps items onto a new line, wrapping algorithm is determined by arrangement
 public struct WrappingHStack: Layout {
     let itemSpacing: CGFloat
     let rowSpacing: CGFloat
@@ -52,7 +52,7 @@ public struct WrappingHStack: Layout {
 
             var maxHeight: CGFloat = 0
 
-            for (index, subview) in row.subviews.enumerated() {
+            for subview in row.subviews {
                 let subviewSize = subview.dimensions(in: proposal)
                 subview.place(at: local.origin, proposal: proposal)
 
@@ -71,27 +71,15 @@ public struct WrappingHStack: Layout {
             // Reset X position
             local.origin.x = bounds.minX
 
-            // TODO:
-            // Find a better way to track max heights
-            // via sizethatfits and the cache?
+
+            // increment y by the largest height subview
             local.origin.y += maxHeight
 
-            // TODO:
-            // Find a better way to
-            // only apply spacing in between rows
-            // not on the last
+            // apply spacing - unless its the last row
             if (index != cache.container.lines.count - 1) {
                 local.origin.y += rowSpacing
             }
         }
-    }
-}
-
-public struct CachedContainer {
-    var container: Container
-
-    init(container: Container = EmptyContainer()) {
-        self.container = container
     }
 }
 
@@ -102,17 +90,4 @@ public enum Arrangement: String, CaseIterable {
     case worstFit
 }
 
-public struct ContainerFactory {
-    func container(for arrangement: Arrangement, with width: CGFloat) -> Container {
-        switch arrangement {
-        case .nextFit:
-            return NextFitContainer(width: width)
-        case .bestFit:
-            return BestFitContainer(width: width)
-        case .firstFit:
-            return FirstFitContainer(width: width)
-        case .worstFit:
-            return WorstFitContainer(width: width)
-        }
-    }
-}
+
