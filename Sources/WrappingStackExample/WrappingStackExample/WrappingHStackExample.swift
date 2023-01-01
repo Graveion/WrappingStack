@@ -12,35 +12,49 @@ struct WrappingHStackExample: View {
 
     @State var viewCount: Double = 3
 
-    @State var rowSpacing: CGFloat = 6
+    @State var lineSpacing: CGFloat = 6
 
     @State var itemSpacing: CGFloat = 12
 
     @State var arrangement: Arrangement = .bestFit
 
-//    let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
+    @State var edgeAlignment: EdgeAlignment = .leading
+
+    @State var axis: Axis = .vertical
+
+    //    let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        let indices = Array<Int>(repeating: 0, count: Int(viewCount)).indices
-
         VStack {
             Spacer()
-            
-            WrappingHStack(itemSpacing: itemSpacing,
-                           rowSpacing: rowSpacing,
-                           arrangement: arrangement) {
-                ForEach(indices, id: \.self) { index in
-                    ExampleTextColorView(item: items[index%items.count])
-                }
+
+            ScrollView(axis == .horizontal ? .vertical : .horizontal) {
+                view(for: axis)
+                    .padding(2)
+                    .border(.foreground)
+                    .background(.gray.opacity(0.5))
+                    .transition(.opacity.combined(with: .slide))
+                    .animation(.default, value: viewCount)
+                    .animation(.default, value: itemSpacing)
+                    .animation(.default, value: arrangement)
+                    .animation(.default, value: edgeAlignment)
             }
-            .padding(2)
-            .border(.foreground)
-            .background(.gray.opacity(0.5))
-            .transition(.opacity.combined(with: .slide))
-            .animation(.default, value: viewCount)
-            .animation(.default, value: itemSpacing)
 
             Spacer()
+
+            Picker("Stack Type", selection: $axis) {
+                ForEach(Axis.allCases, id: \.self) { value in
+                    Text(value.description)
+                }
+            }
+            .pickerStyle(.segmented)
+
+            Picker("Edge Alignment:", selection: $edgeAlignment) {
+                ForEach(EdgeAlignment.allCases, id: \.self) { value in
+                    Text(value.rawValue)
+                }
+            }
+            .pickerStyle(.segmented)
 
             Picker("Arrangment:", selection: $arrangement) {
                 ForEach(Arrangement.allCases, id: \.self) { value in
@@ -50,29 +64,43 @@ struct WrappingHStackExample: View {
             .pickerStyle(.segmented)
 
             VStack {
-                Slider(value: $itemSpacing, in: 0...40, step: 0.2)
-                Text("Item spacing: \(Int(itemSpacing))")
-            }
-            .padding(.vertical, 8)
-
-            VStack {
-                Slider(value: $rowSpacing, in: 0...20, step: 1)
-                Text("Row spacing: \(Int(rowSpacing))")
-            }
-            .padding(.vertical, 8)
-
-            VStack {
-                Slider(value: $viewCount, in: 0...90, step: 1)
-                Text("View count: \(Int(viewCount))")
+                Stepper("View count: \(Int(viewCount))", value: $viewCount, in: 0...100)
+                Stepper("Line spacing: \(Int(lineSpacing))", value: $lineSpacing, in: 0...40)
+                Stepper("Item spacing: \(Int(itemSpacing))", value: $itemSpacing, in: 0...40)
             }
             .padding(.vertical, 8)
         }
         .padding()
-//        .onReceive(timer) { input in
-//             viewCount += 1
-//        }
+        //        .onReceive(timer) { input in
+        //             viewCount += 1
+        //        }
     }
 
+    @ViewBuilder
+    func view(for axis: Axis) -> some View {
+        let indices = Array<Int>(repeating: 0, count: Int(viewCount)).indices
+
+        switch axis {
+        case .horizontal:
+            WrappingHStack(itemSpacing: itemSpacing,
+                           lineSpacing: lineSpacing,
+                           arrangement: arrangement,
+                           edgeAlignment: edgeAlignment) {
+                ForEach(indices, id: \.self) { index in
+                    ExampleTextColorView(item: items[index%items.count])
+                }
+            }
+        case .vertical:
+            WrappingVStack(itemSpacing: itemSpacing,
+                           lineSpacing: lineSpacing,
+                           arrangement: arrangement,
+                           edgeAlignment: edgeAlignment) {
+                ForEach(indices, id: \.self) { index in
+                    ExampleTextColorView(item: items[index%items.count])
+                }
+            }
+        }
+    }
 }
 
 struct WrappingStackExample_Previews: PreviewProvider {

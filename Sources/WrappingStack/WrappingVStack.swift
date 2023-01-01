@@ -1,15 +1,15 @@
 //
-//  WrappingHStack.swift
+//  WrappingVStack.swift
 //  
 //
-//  Created by Tim Green on 16/12/2022.
+//  Created by Tim Green on 01/01/2023.
 //
 
 import Foundation
 import SwiftUI
 
 /// Horizontal Layout which wraps items onto a new line, wrapping algorithm is determined by arrangement
-public struct WrappingHStack: Layout {
+public struct WrappingVStack: Layout {
     let itemSpacing: CGFloat
     let lineSpacing: CGFloat
     let arrangement: Arrangement
@@ -37,20 +37,21 @@ public struct WrappingHStack: Layout {
 
     public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CachedContainer) -> CGSize {
 
-        guard let proposedWidth = proposal.width else { return CGSize() }
+        guard let proposedHeight = proposal.height else { return CGSize() }
 
         // if we are centred then reduce width by itemSpacing
         // to give that room at the end of the line
-        let realWidth = edgeAlignment == .centre ? proposedWidth - itemSpacing : proposedWidth
+        let length = edgeAlignment == .centre ? proposedHeight - itemSpacing : proposedHeight
 
-        cache.container = containerFactory.container(for: arrangement, with: realWidth, axis: .horizontal)
+        // Use container to find out sizes
+        cache.container = containerFactory.container(for: arrangement, with: length, axis: .vertical)
 
         cache.container.fillContainer(subviews: subviews, spacing: itemSpacing)
 
-        let calculatedHeight = cache.container.perpendicular() + (CGFloat(cache.container.lines.count - 1) * lineSpacing)
+        let calculatedWidth = cache.container.perpendicular() + (CGFloat(cache.container.lines.count - 1) * lineSpacing)
 
-        return CGSize(width: proposedWidth,
-                      height: calculatedHeight)
+        return CGSize(width: calculatedWidth,
+                      height: proposedHeight)
     }
 
     public func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CachedContainer) {
@@ -60,15 +61,15 @@ public struct WrappingHStack: Layout {
         // Use container to place views
         for (index, row) in cache.container.lines.enumerated() {
 
-            var maxHeight: CGFloat = 0
+            var maxWidth: CGFloat = 0
 
             switch edgeAlignment {
             case .leading:
-                local.origin.x = bounds.minX
+                local.origin.y = bounds.minY
             case .trailing:
-                local.origin.x = bounds.maxX
+                local.origin.y = bounds.maxY
             case .centre:
-                local.origin.x = bounds.minX + itemSpacing
+                local.origin.y = bounds.minY + itemSpacing
             }
 
             for subview in row.subviews {
@@ -77,38 +78,32 @@ public struct WrappingHStack: Layout {
                 switch edgeAlignment {
                 case .leading:
                     subview.place(at: local.origin, proposal: proposal)
-                    local.origin.x += (subviewSize.width + itemSpacing)
+                    local.origin.y += (subviewSize.height + itemSpacing)
                 case .trailing:
-                    local.origin.x -= subviewSize.width
+                    local.origin.y -= subviewSize.height
                     subview.place(at: local.origin, proposal: proposal)
-                    local.origin.x -= itemSpacing
+                    local.origin.y -= itemSpacing
                 case .centre:
                     // take the lines remaining width and distribute into the spaces between views
                     let distributableSpacing = (row.length / CGFloat(row.subviews.count - 1))
 
                     subview.place(at: local.origin, proposal: proposal)
-                    local.origin.x += (subviewSize.width + itemSpacing + distributableSpacing)
+                    local.origin.y += (subviewSize.height + itemSpacing + distributableSpacing)
                 }
 
-                // check if this subview is higher than the rest
-                if subviewSize.height > maxHeight {
-                    maxHeight = subviewSize.height
+                // check if this subview is wider than the rest
+                if subviewSize.width > maxWidth {
+                    maxWidth = subviewSize.width
                 }
             }
 
-            // increment y by the largest height subview
-            local.origin.y += maxHeight
+            // increment x by the largest height subview
+            local.origin.x += maxWidth
 
             // apply line spacing - unless its the last line
             if (index != cache.container.lines.count - 1) {
-                local.origin.y += lineSpacing
+                local.origin.x += lineSpacing
             }
         }
     }
-}
-
-public enum EdgeAlignment: String, CaseIterable {
-    case leading
-    case trailing
-    case centre
 }

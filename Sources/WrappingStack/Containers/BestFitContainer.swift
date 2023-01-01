@@ -9,22 +9,19 @@ import Foundation
 import SwiftUI
 
 internal class BestFitContainer: Container {
-    internal var width: CGFloat
+    internal var length: CGFloat
     internal var lines: [Line] = []
+    internal var axis: Axis
 
-    init(width: CGFloat = 0, lines: [Line] = []) {
-        self.width = width
-        self.lines = lines
-    }
-
-    var height: CGFloat {
-        lines.map { $0.height }.reduce(0.0, +)
+    init(length: CGFloat = 0, axis: Axis = .horizontal) {
+        self.length = length
+        self.axis = axis
     }
 
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
         for subview in subviews {
             var bestLine: Line?
-            var bestWidth = width
+            var bestWidth = length
             let size = subview.sizeThatFits(.unspecified)
             let itemWidth = size.width + spacing
 
@@ -32,9 +29,9 @@ internal class BestFitContainer: Container {
             for line in lines {
 
                 // If the subview fits in the row and the row is narrower than the best fit so far, update the best fit
-                if line.canFit(itemWidth) && line.width < bestWidth {
+                if line.canFit(itemWidth) && line.length < bestWidth {
                     bestLine = line
-                    bestWidth = line.width
+                    bestWidth = line.length
                 }
             }
 
@@ -43,7 +40,7 @@ internal class BestFitContainer: Container {
                 bestLine.addSubview(itemWidth, subview)
             } else {
                 // If no best fit was found, create a new row and add the subview to it
-                let newLine = Line(width: width, height: size.height)
+                let newLine = Line(length: length)
                 newLine.addSubview(itemWidth, subview)
                 lines.append(newLine)
             }

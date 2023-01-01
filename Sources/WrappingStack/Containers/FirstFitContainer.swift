@@ -9,41 +9,38 @@ import Foundation
 import SwiftUI
 
 internal class FirstFitContainer: Container {
-    internal var width: CGFloat
+    internal var length: CGFloat
     internal var lines: [Line] = []
+    internal var axis: Axis
 
-    init(width: CGFloat = 0, rows: [Line] = []) {
-        self.width = width
-        self.lines = rows
-    }
-
-    var height: CGFloat {
-        lines.map { $0.height }.reduce(0.0, +)
+    init(length: CGFloat = 0, axis: Axis = .horizontal) {
+        self.length = length
+        self.axis = axis
     }
 
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
         for subview in subviews {
             let size = subview.sizeThatFits(.unspecified)
-            let itemWidth = size.width + spacing
+            let itemLength = axis == .horizontal ? size.width + spacing : size.height + spacing
 
             var foundLine: Line? = nil
 
             // Loop through the rows and find the first fit for the subview
             for line in lines {
                 // If the subview fits in the row append
-                if line.canFit(itemWidth) {
+                if line.canFit(itemLength) {
                     foundLine = line
                     break
                 }
             }
 
             if let foundLine = foundLine {
-                foundLine.addSubview(itemWidth, subview)
+                foundLine.addSubview(itemLength, subview)
             } else {
                 // If no fit was found, create a new row and add the subview to it
-                let newLine = Line(width: width, height: size.height)
+                let newLine = Line(length: length)
                 lines.append(newLine)
-                newLine.addSubview(itemWidth, subview)
+                newLine.addSubview(itemLength, subview)
             }
         }
     }

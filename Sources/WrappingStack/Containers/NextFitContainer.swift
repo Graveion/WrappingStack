@@ -9,21 +9,19 @@ import Foundation
 import SwiftUI
 
 internal class NextFitContainer: Container {
-    internal var width: CGFloat
+    internal var length: CGFloat
     internal var lines: [Line] = []
+    internal var axis: Axis
+
     private var currentLine: Line?
 
-    init(width: CGFloat = 0, lines: [Line] = []) {
-        self.width = width
-        self.lines = lines
+    init(length: CGFloat = 0, axis: Axis = .horizontal) {
+        self.length = length
+        self.axis = axis
     }
 
-    var height: CGFloat {
-        lines.map { $0.height }.reduce(0.0, +)
-    }
-
-    private func newLine(height: CGFloat) -> Line {
-        let newLine = Line(width: width, height: height)
+    private func newLine() -> Line {
+        let newLine = Line(length: length)
         lines.append(newLine)
         currentLine = newLine
         return newLine
@@ -32,16 +30,16 @@ internal class NextFitContainer: Container {
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
         for subview in subviews {
             let size = subview.sizeThatFits(.unspecified)
-            let itemWidth = size.width + spacing
+            let itemLength = axis == .horizontal ? size.width + spacing : size.height + spacing
 
-            var currentLine = currentLine ?? newLine(height: size.height)
+            var currentLine = currentLine ?? newLine()
 
             // If the subview doesn't fit we need a new line
-            if !currentLine.canFit(itemWidth) {
-                currentLine = newLine(height: size.height)
+            if !currentLine.canFit(itemLength) {
+                currentLine = newLine()
             }
 
-            currentLine.addSubview(itemWidth, subview)
+            currentLine.addSubview(itemLength, subview)
         }
     }
 }

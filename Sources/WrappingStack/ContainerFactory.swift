@@ -6,21 +6,22 @@
 //
 
 import Foundation
+import SwiftUI
 
 public struct ContainerFactory {
 
     public init() {}
 
-    func container(for arrangement: Arrangement, with width: CGFloat) -> Container {
+    func container(for arrangement: Arrangement, with length: CGFloat, axis: Axis) -> Container {
         switch arrangement {
         case .nextFit:
-            return NextFitContainer(width: width)
+            return NextFitContainer(length: length, axis: axis)
         case .bestFit:
-            return BestFitContainer(width: width)
+            return BestFitContainer(length: length, axis: axis)
         case .firstFit:
-            return FirstFitContainer(width: width)
+            return FirstFitContainer(length: length, axis: axis)
         case .worstFit:
-            return WorstFitContainer(width: width)
+            return WorstFitContainer(length: length, axis: axis)
         }
     }
 }

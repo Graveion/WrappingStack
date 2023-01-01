@@ -8,22 +8,20 @@ import SwiftUI
 import Foundation
 
 internal class Line {
-    var width: CGFloat
-    let height: CGFloat
+    var length: CGFloat
 
     var subviews: [LayoutSubview] = []
 
-    init(width: CGFloat, height: CGFloat) {
-        self.width = width
-        self.height = height
+    init(length: CGFloat) {
+        self.length = length
     }
 
     func canFit(_ w: CGFloat) -> Bool {
-        return width >= w
+        return length >= w
     }
 
     func addSubview(_ w: CGFloat, _ subview: LayoutSubview) {
-        width -= w
+        length -= w
         subviews.append(subview)
     }
 }
