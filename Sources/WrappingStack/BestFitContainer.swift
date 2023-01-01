@@ -22,24 +22,17 @@ internal class BestFitContainer: Container {
     }
 
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
-        for (idx, subview) in subviews.enumerated() {
+        for subview in subviews {
             var bestLine: Line?
             var bestWidth = width
             let size = subview.sizeThatFits(.unspecified)
-
-            if subviews.first == subview {
-                print("isFirst")
-            }
-
-            // If its not the last subview then apply a spacing
-            let spacerWidth = (idx == subviews.count - 1)
-            ? size.width
-            : size.width + spacing
+            let itemWidth = size.width + spacing
 
             // Loop through the rows and find the best fit for the subview
             for line in lines {
+
                 // If the subview fits in the row and the row is narrower than the best fit so far, update the best fit
-                if line.canFit(spacerWidth) && line.width < bestWidth {
+                if line.canFit(itemWidth) && line.width < bestWidth {
                     bestLine = line
                     bestWidth = line.width
                 }
@@ -47,18 +40,18 @@ internal class BestFitContainer: Container {
 
             // If a best fit was found, add the subview to the row
             if let bestLine = bestLine {
-                bestLine.addSubview(spacerWidth, subview)
+                bestLine.addSubview(itemWidth, subview)
             } else {
                 // If no best fit was found, create a new row and add the subview to it
                 let newLine = Line(width: width, height: size.height)
-                newLine.addSubview(spacerWidth, subview)
+                newLine.addSubview(itemWidth, subview)
                 lines.append(newLine)
             }
         }
     }
 }
 
-internal class NextFitContainer: Container {
+internal class WorstFitContainer: Container {
     internal var width: CGFloat
     internal var lines: [Line] = []
 
@@ -72,31 +65,74 @@ internal class NextFitContainer: Container {
     }
 
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
+        for subview in subviews {
+            var bestLine: Line?
+            var bestWidth = 0.0
+            let size = subview.sizeThatFits(.unspecified)
+            let itemWidth = size.width + spacing
 
-        guard let size = subviews.first?.sizeThatFits(.unspecified)
-        else { return }
+            // Loop through the rows and find the best fit for the subview
+            for line in lines {
 
-        var currentLine = Line(width: width, height: size.height)
-        lines.append(currentLine)
-
-        for (idx, subview) in subviews.enumerated() {
-
-            // If its not the last subview then apply a spacing
-            let spacerWidth = (idx == subviews.count - 1)
-            ? size.width
-            : size.width + spacing
-
-            // If the subview fits in the row add it
-            if currentLine.canFit(spacerWidth) {
-                currentLine.addSubview(spacerWidth, subview)
-            } else {
-                // If row is maxed out lets add a new row
-                let newLine = Line(width: width, height: size.height)
-                newLine.addSubview(spacerWidth, subview)
-                lines.append(newLine)
-                currentLine = newLine
+                // If the subview fits in the row and the row is narrower than the best fit so far, update the best fit
+                if line.canFit(itemWidth) && line.width > bestWidth {
+                    bestLine = line
+                    bestWidth = line.width
+                }
             }
 
+            // If a best fit was found, add the subview to the row
+            if let bestLine = bestLine {
+                bestLine.addSubview(itemWidth, subview)
+            } else {
+                // If no fit was found, create a new row and add the subview to it
+                let newLine = Line(width: width, height: size.height)
+                newLine.addSubview(itemWidth, subview)
+                lines.append(newLine)
+            }
+        }
+    }
+}
+
+internal class NextFitContainer: Container {
+    internal var width: CGFloat
+    internal var lines: [Line] = []
+    private var currentLine: Line?
+
+    init(width: CGFloat = 0, lines: [Line] = []) {
+        self.width = width
+        self.lines = lines
+    }
+
+    var height: CGFloat {
+        lines.map { $0.height }.reduce(0.0, +)
+    }
+
+    private func newLine(height: CGFloat) -> Line {
+        let newLine = Line(width: width, height: height)
+        lines.append(newLine)
+        currentLine = newLine
+        return newLine
+    }
+
+    func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
+        for subview in subviews {
+            let size = subview.sizeThatFits(.unspecified)
+            var itemWidth = size.width
+
+            var currentLine = currentLine ?? newLine(height: size.height)
+
+            // check alignments
+            if !currentLine.subviews.isEmpty {
+                itemWidth = size.width + spacing
+            }
+
+            // If the subview doesn't fit we need a new line
+            if !currentLine.canFit(itemWidth) {
+                currentLine = newLine(height: size.height)
+            }
+
+            currentLine.addSubview(itemWidth, subview)
         }
     }
 }
@@ -116,32 +152,28 @@ internal class FirstFitContainer: Container {
 
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
 
-        for (idx, subview) in subviews.enumerated() {
+        for subview in subviews {
             let size = subview.sizeThatFits(.unspecified)
+            let itemWidth = size.width + spacing
 
             var foundLine: Line? = nil
-
-            // If its not the last subview then apply a spacing
-            let spacerWidth = (idx == subviews.count - 1)
-            ? size.width
-            : size.width + spacing
 
             // Loop through the rows and find the first fit for the subview
             for line in lines {
                 // If the subview fits in the row append
-                if line.canFit(spacerWidth) {
+                if line.canFit(itemWidth) {
                     foundLine = line
                     break
                 }
             }
 
             if let foundLine = foundLine {
-                foundLine.addSubview(spacerWidth, subview)
+                foundLine.addSubview(itemWidth, subview)
             } else {
                 // If no fit was found, create a new row and add the subview to it
                 let newLine = Line(width: width, height: size.height)
                 lines.append(newLine)
-                newLine.addSubview(spacerWidth, subview)
+                newLine.addSubview(itemWidth, subview)
             }
         }
     }

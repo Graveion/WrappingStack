@@ -106,7 +106,27 @@ let randomWords = ["boar",
                    "carriage",
                    "witness",
                    "dealer",
-                   "update"]
+                   "update",
+                   "responsibility",
+                   "characteristic",
+                   "understanding",
+                   "preoccupation",
+                   "investigation",
+                   "revolutionary",
+                   "demonstration",
+                   "recommendation",
+                   "infrastructure",
+                   "constellation",
+                   "representative",
+                   "administration",
+                   "characteristic",
+                   "discrimination",
+                   "infrastructure",
+                   "extraterrestrial",
+                   "disappointment",
+                   "superintendent",
+                   "responsibility",
+                   "rehabilitation"]
 
 
 

@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-//@main
-//struct WrappingStackExampleApp: App {
-//    var body: some Scene {
-//        WindowGroup {
-//            ContentView()
-//        }
-//    }
-//}
-
 @main
-struct PerformanceTestApp {
-    static func main() {
-        _TestApp().runBenchmarks([Benchmark()])
+struct WrappingStackExampleApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
     }
 }
+
+//@main
+//struct PerformanceTestApp {
+//    static func main() {
+//        _TestApp().runBenchmarks([Benchmark()])
+//    }
+//}
 
 
 struct Benchmark: _Benchmark {

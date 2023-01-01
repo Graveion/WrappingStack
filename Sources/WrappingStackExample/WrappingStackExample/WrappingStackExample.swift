@@ -16,7 +16,7 @@ struct WrappingStackExample: View {
 
     @State var itemSpacing: CGFloat = 12
 
-    var arrangement: Arrangement = .bestFit
+    @State var arrangement: Arrangement = .bestFit
 
 //    let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
 
@@ -41,23 +41,30 @@ struct WrappingStackExample: View {
 
             Spacer()
 
+            Picker("Arrangment:", selection: $arrangement) {
+                ForEach(Arrangement.allCases, id: \.self) { value in
+                    Text(value.rawValue)
+                }
+            }
+            .pickerStyle(.segmented)
+
             VStack {
                 Slider(value: $itemSpacing, in: 0...20, step: 1)
                 Text("Item spacing: \(Int(itemSpacing))")
             }
-            .padding(.vertical, 15)
+            .padding(.vertical, 8)
 
             VStack {
                 Slider(value: $rowSpacing, in: 0...20, step: 1)
                 Text("Row spacing: \(Int(rowSpacing))")
             }
-            .padding(.vertical, 15)
+            .padding(.vertical, 8)
 
             VStack {
-                Slider(value: $viewCount, in: 0...30, step: 1)
+                Slider(value: $viewCount, in: 0...90, step: 1)
                 Text("View count: \(Int(viewCount))")
             }
-            .padding(.vertical, 15)
+            .padding(.vertical, 8)
         }
         .padding()
 //        .onReceive(timer) { input in

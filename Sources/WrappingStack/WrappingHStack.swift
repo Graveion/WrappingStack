@@ -56,12 +56,12 @@ public struct WrappingHStack: Layout {
                 let subviewSize = subview.dimensions(in: proposal)
                 subview.place(at: local.origin, proposal: proposal)
 
-                local.origin.x += subviewSize.width
+                local.origin.x += (subviewSize.width + itemSpacing)
 
-                // add spacing to everything but the last item
-                if (index != row.subviews.count - 1) {
-                    local.origin.x += itemSpacing
-                }
+//                // add spacing to everything but the last item
+//                if (index != row.subviews.count - 1) {
+//                    local.origin.x += itemSpacing
+//                }
 
                 if subviewSize.height > maxHeight {
                     maxHeight = subviewSize.height
@@ -95,10 +95,11 @@ public struct CachedContainer {
     }
 }
 
-public enum Arrangement {
+public enum Arrangement: String, CaseIterable {
     case nextFit
     case bestFit
     case firstFit
+    case worstFit
 }
 
 public struct ContainerFactory {
@@ -110,6 +111,8 @@ public struct ContainerFactory {
             return BestFitContainer(width: width)
         case .firstFit:
             return FirstFitContainer(width: width)
+        case .worstFit:
+            return WorstFitContainer(width: width)
         }
     }
 }
