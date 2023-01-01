@@ -8,6 +8,9 @@
 import Foundation
 
 public struct ContainerFactory {
+
+    public init() {}
+
     func container(for arrangement: Arrangement, with width: CGFloat) -> Container {
         switch arrangement {
         case .nextFit:

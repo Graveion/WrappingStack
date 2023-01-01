@@ -16,7 +16,7 @@ struct PerformanceTestView: View {
     var arrangement: Arrangement = .firstFit
 
     var body: some View {
-        WrappingStackExample(viewCount: viewCount,
+        WrappingHStackExample(viewCount: viewCount,
                              rowSpacing: rowSpacing,
                              itemSpacing: itemSpacing,
                              arrangement: arrangement)

@@ -8,7 +8,7 @@
 import SwiftUI
 import WrappingStack
 
-struct WrappingStackExample: View {
+struct WrappingHStackExample: View {
 
     @State var viewCount: Double = 3
 
@@ -77,6 +77,6 @@ struct WrappingStackExample: View {
 
 struct WrappingStackExample_Previews: PreviewProvider {
     static var previews: some View {
-        WrappingStackExample()
+        WrappingHStackExample()
     }
 }

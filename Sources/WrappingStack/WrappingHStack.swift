@@ -13,15 +13,19 @@ public struct WrappingHStack: Layout {
     let itemSpacing: CGFloat
     let rowSpacing: CGFloat
     let arrangement: Arrangement
-    let containerFactory = ContainerFactory()
+    let containerFactory: ContainerFactory
 
     /// - itemSpacing: The distance between adjacent subviews, defaults to 0
     /// - rowSpacing: The distance between each row
     /// - arrangement: Determines the order in which items are added
-    public init(itemSpacing: CGFloat = 0, rowSpacing: CGFloat = 0, arrangement: Arrangement = .firstFit) {
+    public init(itemSpacing: CGFloat = 0,
+                rowSpacing: CGFloat = 0,
+                arrangement: Arrangement = .firstFit,
+                containerFactory: ContainerFactory = ContainerFactory()) {
         self.itemSpacing = itemSpacing
         self.rowSpacing = rowSpacing
         self.arrangement = arrangement
+        self.containerFactory = containerFactory
     }
 
     public func makeCache(subviews: Subviews) -> CachedContainer {
@@ -46,6 +50,12 @@ public struct WrappingHStack: Layout {
     public func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout CachedContainer) {
 
         var local = bounds
+
+        // lets do centered as pre space, post space, then when calcs are done
+        // find out what space is remaining, and split it evenly for that row over
+        // post and pre
+
+        // trailing is just reverse the signs
 
         // Use container to place views
         for (index, row) in cache.container.lines.enumerated() {
@@ -83,11 +93,5 @@ public struct WrappingHStack: Layout {
     }
 }
 
-public enum Arrangement: String, CaseIterable {
-    case nextFit
-    case bestFit
-    case firstFit
-    case worstFit
-}
 
 

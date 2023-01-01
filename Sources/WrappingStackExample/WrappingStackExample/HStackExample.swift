@@ -21,10 +21,7 @@ struct HStackExample: View {
         let indices = Array<Int>(repeating: 0, count: Int(viewCount)).indices
 
         VStack {
-            Spacer()
-
-
-            HStack() {
+            HStack(alignment: .bottom) {
                 ForEach(indices, id: \.self) { index in
                     ExampleTextColorView(item: items[index%items.count])
                 }
@@ -34,26 +31,6 @@ struct HStackExample: View {
             .background(.gray.opacity(0.5))
             .transition(.opacity)
             .animation(.default, value: viewCount)
-
-            Spacer()
-
-            VStack {
-                Slider(value: $itemSpacing, in: 0...20, step: 1)
-                Text("Item spacing: \(Int(itemSpacing))")
-            }
-            .padding(.vertical, 15)
-
-            VStack {
-                Slider(value: $rowSpacing, in: 0...20, step: 1)
-                Text("Row spacing: \(Int(rowSpacing))")
-            }
-            .padding(.vertical, 15)
-
-            VStack {
-                Slider(value: $viewCount, in: 0...30, step: 1)
-                Text("View count: \(Int(viewCount))")
-            }
-            .padding(.vertical, 15)
         }
         .padding()
 //        .onReceive(timer) { input in
@@ -65,6 +42,6 @@ struct HStackExample: View {
 
 struct HStackExample_Previews: PreviewProvider {
     static var previews: some View {
-        WrappingStackExample()
+        HStackExample()
     }
 }

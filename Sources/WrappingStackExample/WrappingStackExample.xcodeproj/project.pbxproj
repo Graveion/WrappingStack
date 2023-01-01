@@ -19,7 +19,7 @@
 		C39030BF294CE0BE00BBDB31 /* WrappingStackExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030BE294CE0BE00BBDB31 /* WrappingStackExampleUITests.swift */; };
 		C39030C1294CE0BE00BBDB31 /* WrappingStackExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030C0294CE0BE00BBDB31 /* WrappingStackExampleUITestsLaunchTests.swift */; };
 		C39030D0294CE1BB00BBDB31 /* WrappingStack in Frameworks */ = {isa = PBXBuildFile; productRef = C39030CF294CE1BB00BBDB31 /* WrappingStack */; };
-		C39030D2294CE22B00BBDB31 /* WrappingStackExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030D1294CE22B00BBDB31 /* WrappingStackExample.swift */; };
+		C39030D2294CE22B00BBDB31 /* WrappingHStackExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030D1294CE22B00BBDB31 /* WrappingHStackExample.swift */; };
 		C39030D4294CE76D00BBDB31 /* ExampleTextColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030D3294CE76D00BBDB31 /* ExampleTextColorView.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +56,7 @@
 		C39030BE294CE0BE00BBDB31 /* WrappingStackExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingStackExampleUITests.swift; sourceTree = "<group>"; };
 		C39030C0294CE0BE00BBDB31 /* WrappingStackExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingStackExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C39030CD294CE10600BBDB31 /* WrappingStack */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = WrappingStack; path = ../..; sourceTree = "<group>"; };
-		C39030D1294CE22B00BBDB31 /* WrappingStackExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingStackExample.swift; sourceTree = "<group>"; };
+		C39030D1294CE22B00BBDB31 /* WrappingHStackExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingHStackExample.swift; sourceTree = "<group>"; };
 		C39030D3294CE76D00BBDB31 /* ExampleTextColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTextColorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,7 +115,7 @@
 				C39030A5294CE0BC00BBDB31 /* ContentView.swift */,
 				C39030A7294CE0BD00BBDB31 /* Assets.xcassets */,
 				C39030A9294CE0BD00BBDB31 /* Preview Content */,
-				C39030D1294CE22B00BBDB31 /* WrappingStackExample.swift */,
+				C39030D1294CE22B00BBDB31 /* WrappingHStackExample.swift */,
 				C39030D3294CE76D00BBDB31 /* ExampleTextColorView.swift */,
 				C32641D2295B04F500B20570 /* PerformanceTestView.swift */,
 				C32641D42960A4F400B20570 /* HStackExample.swift */,
@@ -295,7 +295,7 @@
 				C39030A6294CE0BC00BBDB31 /* ContentView.swift in Sources */,
 				C32641D92961E9DE00B20570 /* TestData.swift in Sources */,
 				C39030A4294CE0BC00BBDB31 /* WrappingStackExampleApp.swift in Sources */,
-				C39030D2294CE22B00BBDB31 /* WrappingStackExample.swift in Sources */,
+				C39030D2294CE22B00BBDB31 /* WrappingHStackExample.swift in Sources */,
 				C39030D4294CE76D00BBDB31 /* ExampleTextColorView.swift in Sources */,
 				C32641D3295B04F500B20570 /* PerformanceTestView.swift in Sources */,
 			);
