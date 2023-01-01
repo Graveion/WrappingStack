@@ -22,7 +22,6 @@ internal class FirstFitContainer: Container {
     }
 
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
-
         for subview in subviews {
             let size = subview.sizeThatFits(.unspecified)
             let itemWidth = size.width + spacing

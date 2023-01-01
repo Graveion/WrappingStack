@@ -13,6 +13,7 @@ public struct WrappingHStack: Layout {
     let itemSpacing: CGFloat
     let rowSpacing: CGFloat
     let arrangement: Arrangement
+    let edgeAlignment: EdgeAlignment
     let containerFactory: ContainerFactory
 
     /// - itemSpacing: The distance between adjacent subviews, defaults to 0
@@ -21,11 +22,13 @@ public struct WrappingHStack: Layout {
     public init(itemSpacing: CGFloat = 0,
                 rowSpacing: CGFloat = 0,
                 arrangement: Arrangement = .firstFit,
+                edgeAlignment: EdgeAlignment = .centre,
                 containerFactory: ContainerFactory = ContainerFactory()) {
         self.itemSpacing = itemSpacing
         self.rowSpacing = rowSpacing
         self.arrangement = arrangement
         self.containerFactory = containerFactory
+        self.edgeAlignment = edgeAlignment
     }
 
     public func makeCache(subviews: Subviews) -> CachedContainer {
@@ -34,16 +37,20 @@ public struct WrappingHStack: Layout {
 
     public func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout CachedContainer) -> CGSize {
 
-        guard let width = proposal.width else { return CGSize() }
+        guard let proposedWidth = proposal.width else { return CGSize() }
+
+        // if we are centered then reduce width by itemSpacing
+        // to give that room at the end of the line
+        let realWidth = edgeAlignment == .centre ? proposedWidth - itemSpacing : proposedWidth
 
         // Use container to find out sizes
-        cache.container = containerFactory.container(for: arrangement, with: width)
+        cache.container = containerFactory.container(for: arrangement, with: realWidth)
 
         cache.container.fillContainer(subviews: subviews, spacing: itemSpacing)
 
         let calculatedHeight = cache.container.height + (CGFloat(cache.container.lines.count - 1) * rowSpacing)
 
-        return CGSize(width: cache.container.width,
+        return CGSize(width: proposedWidth,
                       height: calculatedHeight)
     }
 
@@ -62,30 +69,44 @@ public struct WrappingHStack: Layout {
 
             var maxHeight: CGFloat = 0
 
+            switch edgeAlignment {
+            case .leading:
+                local.origin.x = bounds.minX
+            case .trailing:
+                local.origin.x = bounds.maxX
+            case .centre:
+                local.origin.x = bounds.minX + itemSpacing
+            }
+
             for subview in row.subviews {
                 let subviewSize = subview.dimensions(in: proposal)
-                subview.place(at: local.origin, proposal: proposal)
 
-                local.origin.x += (subviewSize.width + itemSpacing)
+                switch edgeAlignment {
+                case .leading:
+                    subview.place(at: local.origin, proposal: proposal)
+                    local.origin.x += (subviewSize.width + itemSpacing)
+                case .trailing:
+                    local.origin.x -= subviewSize.width
+                    subview.place(at: local.origin, proposal: proposal)
+                    local.origin.x -= itemSpacing
+                case .centre:
+                    // take the lines remaining width and distribute into the spaces between views
+                    let distributableSpacing = (row.width / CGFloat(row.subviews.count - 1))
 
-//                // add spacing to everything but the last item
-//                if (index != row.subviews.count - 1) {
-//                    local.origin.x += itemSpacing
-//                }
+                    subview.place(at: local.origin, proposal: proposal)
+                    local.origin.x += (subviewSize.width + itemSpacing + distributableSpacing)
+                }
 
+                // check if this subview is higher than the rest
                 if subviewSize.height > maxHeight {
                     maxHeight = subviewSize.height
                 }
             }
 
-            // Reset X position
-            local.origin.x = bounds.minX
-
-
             // increment y by the largest height subview
             local.origin.y += maxHeight
 
-            // apply spacing - unless its the last row
+            // apply line spacing - unless its the last line
             if (index != cache.container.lines.count - 1) {
                 local.origin.y += rowSpacing
             }
@@ -93,5 +114,8 @@ public struct WrappingHStack: Layout {
     }
 }
 
-
-
+public enum EdgeAlignment {
+    case leading
+    case trailing
+    case centre
+}

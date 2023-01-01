@@ -32,14 +32,9 @@ internal class NextFitContainer: Container {
     func fillContainer(subviews: LayoutSubviews, spacing: CGFloat = 0) {
         for subview in subviews {
             let size = subview.sizeThatFits(.unspecified)
-            var itemWidth = size.width
+            let itemWidth = size.width + spacing
 
             var currentLine = currentLine ?? newLine(height: size.height)
-
-            // check alignments
-            if !currentLine.subviews.isEmpty {
-                itemWidth = size.width + spacing
-            }
 
             // If the subview doesn't fit we need a new line
             if !currentLine.canFit(itemWidth) {

@@ -50,7 +50,7 @@ struct WrappingHStackExample: View {
             .pickerStyle(.segmented)
 
             VStack {
-                Slider(value: $itemSpacing, in: 0...20, step: 1)
+                Slider(value: $itemSpacing, in: 0...40, step: 0.2)
                 Text("Item spacing: \(Int(itemSpacing))")
             }
             .padding(.vertical, 8)
