@@ -12,12 +12,12 @@ struct PerformanceTestView: View {
 
     var viewCount: Double = 1
     var itemSpacing: CGFloat = 5
-    var rowSpacing: CGFloat = 5
+    var lineSpacing: CGFloat = 5
     var arrangement: Arrangement = .firstFit
 
     var body: some View {
         WrappingHStackExample(viewCount: viewCount,
-                             rowSpacing: rowSpacing,
+                              lineSpacing: lineSpacing,
                              itemSpacing: itemSpacing,
                              arrangement: arrangement)
     }

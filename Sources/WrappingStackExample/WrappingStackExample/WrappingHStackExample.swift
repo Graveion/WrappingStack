@@ -64,7 +64,9 @@ struct WrappingHStackExample: View {
             .pickerStyle(.segmented)
 
             VStack {
-                Stepper("View count: \(Int(viewCount))", value: $viewCount, in: 0...100)
+                Slider(value: $viewCount, in: 0...100, label: {
+                    Text("View count: \(Int(viewCount))")
+                })
                 Stepper("Line spacing: \(Int(lineSpacing))", value: $lineSpacing, in: 0...40)
                 Stepper("Item spacing: \(Int(itemSpacing))", value: $itemSpacing, in: 0...40)
             }

@@ -23,13 +23,13 @@ internal class BestFitContainer: Container {
             var bestLine: Line?
             var bestWidth = length
             let size = subview.sizeThatFits(.unspecified)
-            let itemWidth = size.width + spacing
+            let itemLength = axis == .horizontal ? size.width + spacing : size.height + spacing
 
             // Loop through the rows and find the best fit for the subview
             for line in lines {
 
                 // If the subview fits in the row and the row is narrower than the best fit so far, update the best fit
-                if line.canFit(itemWidth) && line.length < bestWidth {
+                if line.canFit(itemLength) && line.length < bestWidth {
                     bestLine = line
                     bestWidth = line.length
                 }
@@ -37,11 +37,11 @@ internal class BestFitContainer: Container {
 
             // If a best fit was found, add the subview to the row
             if let bestLine = bestLine {
-                bestLine.addSubview(itemWidth, subview)
+                bestLine.addSubview(itemLength, subview)
             } else {
                 // If no best fit was found, create a new row and add the subview to it
                 let newLine = Line(length: length)
-                newLine.addSubview(itemWidth, subview)
+                newLine.addSubview(itemLength, subview)
                 lines.append(newLine)
             }
         }
