@@ -20,7 +20,7 @@ struct WrappingHStackExample: View {
 
     @State var edgeAlignment: EdgeAlignment = .leading
 
-    @State var axis: Axis = .vertical
+    @State var axis: Axis = .horizontal
 
     //    let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
 

@@ -22,7 +22,7 @@ public struct WrappingVStack: Layout {
     public init(itemSpacing: CGFloat = 0,
                 lineSpacing: CGFloat = 0,
                 arrangement: Arrangement = .firstFit,
-                edgeAlignment: EdgeAlignment = .centre,
+                edgeAlignment: EdgeAlignment = .justified,
                 containerFactory: ContainerFactory = ContainerFactory()) {
         self.itemSpacing = itemSpacing
         self.lineSpacing = lineSpacing
@@ -39,9 +39,14 @@ public struct WrappingVStack: Layout {
 
         guard let proposedHeight = proposal.height else { return CGSize() }
 
-        // if we are centred then reduce width by itemSpacing
-        // to give that room at the end of the line
-        let length = edgeAlignment == .centre ? proposedHeight - itemSpacing : proposedHeight
+        var length = proposedHeight
+
+        switch edgeAlignment {
+        case .justified:
+            length -= itemSpacing
+        default:
+            length += itemSpacing
+        }
 
         // Use container to find out sizes
         cache.container = containerFactory.container(for: arrangement, with: length, axis: .vertical)
@@ -68,8 +73,11 @@ public struct WrappingVStack: Layout {
                 local.origin.y = bounds.minY
             case .trailing:
                 local.origin.y = bounds.maxY
-            case .centre:
+            case .justified:
                 local.origin.y = bounds.minY + itemSpacing
+
+            case .centre:
+                local.origin.y = bounds.minY + row.length
             }
 
             for subview in row.subviews {
@@ -83,12 +91,13 @@ public struct WrappingVStack: Layout {
                     local.origin.y -= subviewSize.height
                     subview.place(at: local.origin, proposal: proposal)
                     local.origin.y -= itemSpacing
-                case .centre:
-                    // take the lines remaining width and distribute into the spaces between views
+                case .justified:
                     let distributableSpacing = (row.length / CGFloat(row.subviews.count - 1))
-
                     subview.place(at: local.origin, proposal: proposal)
                     local.origin.y += (subviewSize.height + itemSpacing + distributableSpacing)
+                case .centre:
+                    subview.place(at: local.origin, proposal: proposal)
+                    local.origin.y += (subviewSize.height + itemSpacing)
                 }
 
                 // check if this subview is wider than the rest

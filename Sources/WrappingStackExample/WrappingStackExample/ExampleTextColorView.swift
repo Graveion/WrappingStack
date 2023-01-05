@@ -13,7 +13,7 @@ struct ExampleTextColorView: View {
 
     var body: some View {
         Text("\(item.text)")
-            .font(.caption)
+            .randomFont()
             .padding(3)
             .lightShadow(color: item.color)
             .colorInvert()
@@ -24,8 +24,6 @@ struct ExampleTextColorView: View {
             )
 
     }
-
-
 }
 
 struct ExampleColorView_Previews: PreviewProvider {
@@ -41,8 +39,10 @@ struct ExampleItem {
 
 
 
+extension Text {
+    public func randomFont() -> Text {
+        self.font(fonts.randomElement()!)
+    }
+}
 
-
-
-
-
+let fonts: [Font] = [.callout, .caption, .caption2, .footnote, .headline, .subheadline, .title, .title2]

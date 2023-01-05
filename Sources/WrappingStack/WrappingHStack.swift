@@ -22,7 +22,7 @@ public struct WrappingHStack: Layout {
     public init(itemSpacing: CGFloat = 0,
                 lineSpacing: CGFloat = 0,
                 arrangement: Arrangement = .firstFit,
-                edgeAlignment: EdgeAlignment = .centre,
+                edgeAlignment: EdgeAlignment = .justified,
                 containerFactory: ContainerFactory = ContainerFactory()) {
         self.itemSpacing = itemSpacing
         self.lineSpacing = lineSpacing
@@ -39,9 +39,16 @@ public struct WrappingHStack: Layout {
 
         guard let proposedWidth = proposal.width else { return CGSize() }
 
-        // if we are centred then reduce width by itemSpacing
-        // to give that room at the end of the line
-        let realWidth = edgeAlignment == .centre ? proposedWidth - itemSpacing : proposedWidth
+        var realWidth = proposedWidth
+
+        switch edgeAlignment {
+        case .justified:
+            realWidth -= itemSpacing
+        case .centre:
+            realWidth += itemSpacing
+        default:
+            break
+        }
 
         cache.container = containerFactory.container(for: arrangement, with: realWidth, axis: .horizontal)
 
@@ -67,8 +74,10 @@ public struct WrappingHStack: Layout {
                 local.origin.x = bounds.minX
             case .trailing:
                 local.origin.x = bounds.maxX
-            case .centre:
+            case .justified:
                 local.origin.x = bounds.minX + itemSpacing
+            case .centre:
+                local.origin.x = bounds.minX + (row.length / 2.0)
             }
 
             for subview in row.subviews {
@@ -82,12 +91,15 @@ public struct WrappingHStack: Layout {
                     local.origin.x -= subviewSize.width
                     subview.place(at: local.origin, proposal: proposal)
                     local.origin.x -= itemSpacing
-                case .centre:
+                case .justified:
                     // take the lines remaining width and distribute into the spaces between views
                     let distributableSpacing = (row.length / CGFloat(row.subviews.count - 1))
 
                     subview.place(at: local.origin, proposal: proposal)
                     local.origin.x += (subviewSize.width + itemSpacing + distributableSpacing)
+                case .centre:
+                    subview.place(at: local.origin, proposal: proposal)
+                    local.origin.x += (subviewSize.width + itemSpacing)
                 }
 
                 // check if this subview is higher than the rest
@@ -110,5 +122,6 @@ public struct WrappingHStack: Layout {
 public enum EdgeAlignment: String, CaseIterable {
     case leading
     case trailing
+    case justified
     case centre
 }
