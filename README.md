@@ -28,3 +28,7 @@ Spacing:
 ![ItemSpacing](./itemSpacing.gif?raw=true)
 
 * `rowSpacing` : The space between each row
+
+## Featured In:
+
+Brew - https://github.com/Jenm-b/Brew 
