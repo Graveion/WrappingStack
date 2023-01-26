@@ -22,14 +22,14 @@ struct WrappingHStackExample: View {
 
     @State var axis: Axis = .horizontal
 
-    //    let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 0.3, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack {
             Spacer()
 
-            ScrollView(axis == .horizontal ? .vertical : .horizontal) {
-                view(for: axis)
+            //ScrollView(axis == .horizontal ? .vertical : .horizontal) {
+            view(for: .horizontal)
                     .padding(2)
                     .border(.foreground)
                     .background(.gray.opacity(0.5))
@@ -38,7 +38,14 @@ struct WrappingHStackExample: View {
                     .animation(.default, value: itemSpacing)
                     .animation(.default, value: arrangement)
                     .animation(.default, value: edgeAlignment)
+            //}
+
+            Picker("Edge Alignment:", selection: $edgeAlignment) {
+                ForEach(EdgeAlignment.allCases, id: \.self) { value in
+                    Text(value.rawValue)
+                }
             }
+            .pickerStyle(.segmented)
 
             Spacer()
 
@@ -49,12 +56,6 @@ struct WrappingHStackExample: View {
             }
             .pickerStyle(.segmented)
 
-            Picker("Edge Alignment:", selection: $edgeAlignment) {
-                ForEach(EdgeAlignment.allCases, id: \.self) { value in
-                    Text(value.rawValue)
-                }
-            }
-            .pickerStyle(.segmented)
 
             Picker("Arrangment:", selection: $arrangement) {
                 ForEach(Arrangement.allCases, id: \.self) { value in
@@ -73,9 +74,10 @@ struct WrappingHStackExample: View {
             .padding(.vertical, 8)
         }
         .padding()
-        //        .onReceive(timer) { input in
-        //             viewCount += 1
-        //        }
+        .onReceive(timer) { input in
+            guard viewCount < 20 else { return }
+            viewCount += 1
+        }
     }
 
     @ViewBuilder

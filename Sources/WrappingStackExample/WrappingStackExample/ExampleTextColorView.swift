@@ -3,7 +3,6 @@
 //  WrappingStackExample
 //
 //  Created by Tim Green on 16/12/2022.
-//
 
 import SwiftUI
 
@@ -13,7 +12,7 @@ struct ExampleTextColorView: View {
 
     var body: some View {
         Text("\(item.text)")
-            .randomFont()
+            .font(.caption)
             .padding(3)
             .lightShadow(color: item.color)
             .colorInvert()

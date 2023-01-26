@@ -16,13 +16,16 @@ public struct WrappingHStack: Layout {
     let edgeAlignment: EdgeAlignment
     let containerFactory: ContainerFactory
 
-    /// - itemSpacing: The distance between adjacent subviews, defaults to 0
-    /// - rowSpacing: The distance between each row
-    /// - arrangement: Determines the order in which items are added
+    /// Arranges views horizontally and creates a new row when an item exceeds the allowed spacing
+    /// - Parameters:
+    ///    - itemSpacing: The distance between adjacent subviews, defaults to 0
+    ///    - rowSpacing: The distance between each row
+    ///    - arrangement: Determines the order in which items are added
+    ///    - edgeAlignment: Aligns views to an edge or centrally
     public init(itemSpacing: CGFloat = 0,
                 lineSpacing: CGFloat = 0,
                 arrangement: Arrangement = .firstFit,
-                edgeAlignment: EdgeAlignment = .justified,
+                edgeAlignment: EdgeAlignment = .leading,
                 containerFactory: ContainerFactory = ContainerFactory()) {
         self.itemSpacing = itemSpacing
         self.lineSpacing = lineSpacing
