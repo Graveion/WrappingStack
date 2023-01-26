@@ -17,6 +17,10 @@ Arrangement:
 
 * `.bestFit`: Items will be added to the row which has the most space remaining, assuming it will fit 
 
+Alignment:
+
+![Alignment](./alignment.gif?raw=true)
+
 
 Spacing:
 * `itemSpacing`: The space between items
