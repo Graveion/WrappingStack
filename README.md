@@ -25,8 +25,6 @@ Alignment:
 Spacing:
 * `itemSpacing`: The space between items
 
-![ItemSpacing](./itemSpacing.gif?raw=true)
-
 * `rowSpacing` : The space between each row
 
 ## Featured In:
