@@ -21,13 +21,18 @@ Alignment:
 
 ![Alignment](./alignment.gif?raw=true)
 
-
 Spacing:
 * `itemSpacing`: The space between items
 
 ![ItemSpacing](./itemSpacing.gif?raw=true)
 
 * `rowSpacing` : The space between each row
+
+
+Example:
+An example of a mix of views: image views, text and buttons with vertical and horizontally stacked text
+
+![Mixed Views](./mixedViewsWrapping.png)
 
 ## Featured In:
 

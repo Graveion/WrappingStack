@@ -11,6 +11,7 @@
 		C32641D52960A4F400B20570 /* HStackExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32641D42960A4F400B20570 /* HStackExample.swift */; };
 		C32641D72961E9A700B20570 /* LightShadowModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32641D62961E9A700B20570 /* LightShadowModifier.swift */; };
 		C32641D92961E9DE00B20570 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32641D82961E9DE00B20570 /* TestData.swift */; };
+		C35387FA29BA510800C1CD29 /* MixedViewsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35387F929BA510800C1CD29 /* MixedViewsExample.swift */; };
 		C39030A4294CE0BC00BBDB31 /* WrappingStackExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030A3294CE0BC00BBDB31 /* WrappingStackExampleApp.swift */; };
 		C39030A6294CE0BC00BBDB31 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39030A5294CE0BC00BBDB31 /* ContentView.swift */; };
 		C39030A8294CE0BD00BBDB31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C39030A7294CE0BD00BBDB31 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		C32641D42960A4F400B20570 /* HStackExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackExample.swift; sourceTree = "<group>"; };
 		C32641D62961E9A700B20570 /* LightShadowModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightShadowModifier.swift; sourceTree = "<group>"; };
 		C32641D82961E9DE00B20570 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		C35387F929BA510800C1CD29 /* MixedViewsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixedViewsExample.swift; sourceTree = "<group>"; };
 		C39030A0294CE0BC00BBDB31 /* WrappingStackExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WrappingStackExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C39030A3294CE0BC00BBDB31 /* WrappingStackExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingStackExampleApp.swift; sourceTree = "<group>"; };
 		C39030A5294CE0BC00BBDB31 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C35387F729BA50C300C1CD29 /* MixedViewsExample */ = {
+			isa = PBXGroup;
+			children = (
+				C35387F929BA510800C1CD29 /* MixedViewsExample.swift */,
+			);
+			path = MixedViewsExample;
+			sourceTree = "<group>";
+		};
 		C3903097294CE0BC00BBDB31 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +121,7 @@
 		C39030A2294CE0BC00BBDB31 /* WrappingStackExample */ = {
 			isa = PBXGroup;
 			children = (
+				C35387F729BA50C300C1CD29 /* MixedViewsExample */,
 				C39030A3294CE0BC00BBDB31 /* WrappingStackExampleApp.swift */,
 				C39030A5294CE0BC00BBDB31 /* ContentView.swift */,
 				C39030A7294CE0BD00BBDB31 /* Assets.xcassets */,
@@ -294,6 +305,7 @@
 				C32641D72961E9A700B20570 /* LightShadowModifier.swift in Sources */,
 				C39030A6294CE0BC00BBDB31 /* ContentView.swift in Sources */,
 				C32641D92961E9DE00B20570 /* TestData.swift in Sources */,
+				C35387FA29BA510800C1CD29 /* MixedViewsExample.swift in Sources */,
 				C39030A4294CE0BC00BBDB31 /* WrappingStackExampleApp.swift in Sources */,
 				C39030D2294CE22B00BBDB31 /* WrappingHStackExample.swift in Sources */,
 				C39030D4294CE76D00BBDB31 /* ExampleTextColorView.swift in Sources */,

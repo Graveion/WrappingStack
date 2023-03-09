@@ -27,7 +27,7 @@ struct WrappingHStackExample: View {
     var body: some View {
         VStack {
             Spacer()
-
+            
             //ScrollView(axis == .horizontal ? .vertical : .horizontal) {
             view(for: .horizontal)
                     .padding(2)
